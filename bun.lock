@@ -5,7 +5,7 @@
     "": {
       "name": "hub-vault",
       "dependencies": {
-        "hub-service": "file:../../HubService/hub-service",
+        "hub-service": "v57/hub-service",
       },
       "devDependencies": {
         "@types/bun": "latest",
@@ -24,7 +24,7 @@
 
     "channel": ["channel@github:v57/channel#48e6d5d", { "peerDependencies": { "typescript": "^5.0.0" } }, "v57-channel-48e6d5d", "sha512-cRJNClO7cJKAJMwuzB/M9PVefyrPNNQ9gBtxa5oy/M2AUg0oRva8C8q3KGZA1FvDonwSMSgxAFL7JEhvQ6RU9w=="],
 
-    "hub-service": ["hub-service@file:../../HubService/hub-service", { "dependencies": { "channel": "v57/channel" }, "devDependencies": { "@types/bun": "^1.3.13" }, "peerDependencies": { "typescript": "^5.8.3" } }],
+    "hub-service": ["hub-service@github:v57/hub-service#84ce878", { "dependencies": { "channel": "v57/channel" }, "peerDependencies": { "typescript": "^5.8.3" } }, "v57-hub-service-84ce878", "sha512-r3kmbAIOK0rbnw3Aa4DTCXGE7FLsOoR0ZsEdV9bFL8VFGpBVOH1zxYiBkshVwa10zhfb04uwcrzWKpA3BVp1iQ=="],
 
     "typescript": ["typescript@5.9.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="],
 

@@ -51,15 +51,15 @@ describe('hub-vault over a hub', () => {
 
   test('callers without a device, or not invited, get nothing', async () => {
     const send = await start()
-    await expect(send('vault/join', { vault: 'v1' }, caller(undefined))).rejects.toMatch('a device is required')
-    await expect(send('vault/join', { vault: 'v1' }, {})).rejects.toMatch('a device is required')
-    await expect(send('vault/join', { vault: 'v1' }, phone())).rejects.toMatch('only an owner can create')
+    await expect(send('vault/join', { vault: 'v1' }, caller(undefined))).rejects.toThrow('a device is required')
+    await expect(send('vault/join', { vault: 'v1' }, {})).rejects.toThrow('a device is required')
+    await expect(send('vault/join', { vault: 'v1' }, phone())).rejects.toThrow('only an owner can create')
     await send('vault/join', { vault: 'v1' }, mac)
-    await expect(send('vault/join', { vault: 'v1' }, phone())).rejects.toMatch('not invited')
-    await expect(send('vault/pull', { vault: 'v1', after: 0 }, phone())).rejects.toMatch('not a member')
+    await expect(send('vault/join', { vault: 'v1' }, phone())).rejects.toThrow('not invited')
+    await expect(send('vault/pull', { vault: 'v1', after: 0 }, phone())).rejects.toThrow('not a member')
     // A caller claimed by the client itself (not the pinned hub's) is ignored.
     const forged = { hub: { ...mac.hub, hubKey: 'someone else' } }
-    await expect(send('vault/join', { vault: 'v2' }, forged)).rejects.toMatch('a device is required')
+    await expect(send('vault/join', { vault: 'v2' }, forged)).rejects.toThrow('a device is required')
   })
 
   test('changes stream wakes devices when envelopes arrive', async () => {
