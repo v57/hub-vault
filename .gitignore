@@ -1,0 +1,20 @@
+.DS_Store
+auth
+node_modules
+.env
+data/
+CLAUDE.md
+/.claude
+
+# macOS
+# Finder folder icon: a file named Icon plus a carriage return
+Icon[
+]
+
+# Agents (local agent instructions, settings and boards)
+AGENTS.md
+.claude/
+.codex/
+.commandcode/
+.hermes/
+KANBAN*.md
