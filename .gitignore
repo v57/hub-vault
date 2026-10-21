@@ -1,5 +1,7 @@
 .DS_Store
 auth
+# The service key and the Hub keys it pinned, when it runs from this folder
+hubs.json
 node_modules
 .env
 data/
