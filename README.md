@@ -4,7 +4,7 @@ A Hub service that carries v57 Vault's record changes between a user's devices: 
 kept per vault until every member device has them. The service sees ciphertext, device ids and timing, never a
 record.
 
-- **Devices only.** Every call needs the caller's device (`context.hub.caller.device`, set by hub-pro for a
+- **Devices only.** Every call needs the caller's device (`context.hub.caller.device`, set by hub-server for a
   connection with a certificate from an approved device). Who may call `vault/*` at all is the hub's decision
   (owners, or a grant in default-deny mode).
 - **Vaults.** An owner's device creates a vault (an opaque id the devices agree on) by joining it. Members invite
