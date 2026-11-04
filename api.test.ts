@@ -6,7 +6,7 @@ import { serveVault } from './api'
 import { Mailbox } from './mailbox'
 
 const serviceKey = new KeyFile(vectors.keys.service.keyFile)
-const sign = async (hubKey?: string) => authToken(serviceKey, Math.round(Date.now() / 1000) + 60, hubKey)
+const sign = async (hubKey: string, nonce: string) => authToken(serviceKey, Math.round(Date.now() / 1000) + 30, hubKey, nonce)
 
 let hub: FakeHub
 let service: MultiplatformService
