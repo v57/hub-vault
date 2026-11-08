@@ -1,8 +1,13 @@
 # hub-vault
 
 A Hub service that carries v57 Vault's record changes between a user's devices: end-to-end-encrypted envelopes,
-kept per vault until every member device has them. The service sees ciphertext, device ids and timing, never a
-record.
+kept per vault until every member device has them. The service never sees a record, but it does see:
+- ciphertext, with each payload's size and the key id and record id in its plain `Sealed{id, keyID}` wrapper;
+- envelope ids (`<device id>:<record id>:<version>`, so structured record ids such as `profile.<account>` show), the
+  sender and the time of every push;
+- the devices' names, which devices share each vault (invites, joins and leaves) and how far each one has read.
+
+Hashing the ids and dropping names is planned after 1.0 (security audit M13).
 
 - **Devices only.** Every call needs the caller's device (`context.hub.caller.device`, set by hub-server for a
   connection with a certificate from an approved device). Who may call `vault/*` at all is the hub's decision
