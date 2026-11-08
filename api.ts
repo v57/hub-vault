@@ -1,4 +1,5 @@
 import type { Caller, MultiplatformService, ServiceRequest } from 'hub-service/service'
+import { descriptions } from './descriptions'
 import { Mailbox, MailboxError, type Envelope } from './mailbox'
 
 /**
@@ -28,28 +29,28 @@ export function serveVault(service: MultiplatformService, mailbox: Mailbox) {
       const result = run(() => mailbox.join(vaultID(body), caller.id, { owner: caller.owner, name: caller.name }))
       if (result.joined) changed(vaultID(body))
       return result
-    })
+    }, descriptions.post['vault/join'])
     .post('vault/invite', (body, request) => {
       run(() => mailbox.invite(vaultID(body), device(request).id, body?.device))
-    })
+    }, descriptions.post['vault/invite'])
     .post('vault/leave', (body, request) => {
       const caller = device(request)
       run(() => mailbox.leave(vaultID(body), caller.id, body?.device ?? caller.id, caller.owner))
       changed(vaultID(body))
-    })
+    }, descriptions.post['vault/leave'])
     .post('vault/push', (body, request) => {
       const last = run(() => mailbox.push(vaultID(body), device(request).id, body?.envelopes as Envelope[]))
       changed(vaultID(body))
       return last
-    })
+    }, descriptions.post['vault/push'])
     .post('vault/pull', (body, request) => {
       const after = Number(body?.after ?? 0)
       const limit = body?.limit == null ? undefined : Number(body.limit)
       return run(() => mailbox.pull(vaultID(body), device(request).id, Number.isFinite(after) ? after : 0, limit))
-    })
+    }, descriptions.post['vault/pull'])
     .post('vault/ack', (body, request) => {
       run(() => mailbox.ack(vaultID(body), device(request).id, Number(body?.seq ?? 0)))
-    })
+    }, descriptions.post['vault/ack'])
     .stream('vault/changes', async function* (body, request) {
       const vault = vaultID(body)
       const id = device(request).id
@@ -74,7 +75,7 @@ export function serveVault(service: MultiplatformService, mailbox: Mailbox) {
         set.delete(listener)
         if (set.size === 0) watchers.delete(vault)
       }
-    })
+    }, descriptions.stream['vault/changes'])
 }
 
 /** The calling device, or a refusal for callers without one. */
